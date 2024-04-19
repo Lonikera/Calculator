@@ -32,14 +32,19 @@ public class Main {
         checkDigitRange(firstNumber, secondNumber);
 
         var result = Expression.count(firstNumber, secondNumber, sign);
+        if (!isArabDigit) {
+            if (result <= 0) {
+                throw new IllegalArgumentException("Результат выражения не может быть отрицательным");
+            }
+        }
         return isArabDigit
                 ? String.valueOf(result)
                 : Converter.toRome(result);
     }
 
     private static void checkDigitRange(int firstNumber, int secondNumber) {
-        if (!IS_DIGIT_IN_RANGE.test(firstNumber) && !IS_DIGIT_IN_RANGE.test(secondNumber)) {
-            throw new IllegalArgumentException("Диапазон чисел должен быть в " + RANGE.getRange());
+        if (firstNumber < 1 || firstNumber > 10 || secondNumber < 1 || secondNumber > 10 ) {
+            throw new IllegalArgumentException("Диапазон чисел должен быть от 1 до 10.");
         }
     }
 
